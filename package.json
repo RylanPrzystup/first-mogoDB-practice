@@ -1,0 +1,24 @@
+{
+  "name": "first-database-starter",
+  "version": "1.0.0",
+  "description": "West-MEC Coding Year 2: build the shop's inventory database with JavaScript",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "check-mongodb": "node setup/check-mongodb.js",
+    "get-mongodb": "node setup/get-mongodb.js"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "disablePostinstall": "1"
+    }
+  },
+  "dependencies": {
+    "mongodb": "^7.7.0",
+    "mongodb-memory-server": "^11.3.0"
+  }
+}
