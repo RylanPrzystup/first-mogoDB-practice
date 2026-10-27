@@ -7,13 +7,19 @@ const client = await connect();
 // ---------- Part 2: CREATE (the database, the collection, the first products) ----------
 // YOUR CODE: Part 2
 
-async function createDatabase() {
 const database = client.db("inventoryDB");
 const products = database.collection("products")
 
 //list database contents before inserting
+const hoodie = {
+    _id: "hoodie",
+    name: "west mec hoodie",
+    price: 38,
+    stock: 3,
+};
+
 const hoodieResult = await products.insertOne(hoodie)
-console.log("Inserted hoodie with ID:", hoodieResult.insertedId);
+console.log("Inserted hoodie with ID:", hoodieResult);
 
 const manyResult = await products.insertMany([
 
@@ -39,19 +45,17 @@ const manyResult = await products.insertMany([
 
 ])
 
-console.log("Inserted many products with IDs:", manyResult.insertedIds);
+console.log("Inserted many products with IDs:", manyResult);
 
 //list database agian
 const updatedDatabase = await client.db("inventoryDB").collection("products").find().toArray();
 console.log("Updated database contents:", updatedDatabase);
 
-}
+
 
 // ---------- Part 3: READ ----------
 // YOUR CODE: Part 3
 
-
-async function readDatabase() {
 //find every product in the database
 const allProducts = await client.db("inventoryDB").collection("products").find().toArray();
 console.log("All products:", allProducts); 
@@ -74,14 +78,16 @@ const missing = await client.db("inventoryDB").collection("products").findOne({
 });
 console.log("Missing product:", missing);
 
-}
+
 
 // ---------- Part 4: UPDATE ----------
 // YOUR CODE: Part 4, UPDATE
 
+
 // ---------- Part 4: DELETE and DROP ----------
 // YOUR CODE: Part 4, DELETE and DROP
 
- createDatabase();
- readDatabase();
+
+
+
 await disconnect();
