@@ -83,11 +83,39 @@ console.log("Missing product:", missing);
 // ---------- Part 4: UPDATE ----------
 // YOUR CODE: Part 4, UPDATE
 
+const hoodieUpdate = await products.updateOne(
+    { _id: "hoodie"},
+    { $set: {price: 30}}
+)
+
+console.log("updatedOne matched " + hoodieUpdate.matchedCount)
+console.log("modified " + hoodieUpdate.modifiedCount)
+
+await products.updateOne(
+    { _id: "lanyard"},
+    { $inc : {stock: 5}}
+)
+
+const lanyard = await products.findOne({ _id: "lanyard"})
+console.log(lanyard)
+
+
 
 // ---------- Part 4: DELETE and DROP ----------
 // YOUR CODE: Part 4, DELETE and DROP
 
+const deleteResult = await products.deleteOne({ _id: "cap"})
+console.log("deleteone delted count: " + deleteResult.deletedCount)
+
+const productsLeft = await products.countDocuments({})
+console.log("products left: " + productsLeft)
 
 
+//drop the whole thang
+await db.dropDatabase
+
+const finalDatabases = await client.db().admin().listDatabases()
+
+console.log("After dropDatabase: " + finalDatabases.databases.map(d=> d.name))
 
 await disconnect();
